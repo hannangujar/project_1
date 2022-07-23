@@ -1,6 +1,8 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: %i[ show update destroy ]
-
+  include ApplicationHelper
+  before_action :set_book, only: %i[show edit update destroy]
+  # before_action :authenticate_user!
+  before_action :is_admin?
   # GET /products
   def index
     @products = Product.all

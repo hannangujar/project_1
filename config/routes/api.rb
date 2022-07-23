@@ -3,8 +3,7 @@ namespace :api do
       scope :users, module: :user do
         post '/', to: "registrations#create", as: :user_registration
       end
-
-     resources :books
+     resources :products
 
     end
   end  

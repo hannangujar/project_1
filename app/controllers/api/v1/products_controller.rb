@@ -1,19 +1,23 @@
-class Api::V1::ContactsController < ApplicationController
-    before_action :set_product, only: %i[ show update destroy ]
+class Api::V1::ProductsController < ApiController
   
-    # GET /products
+  before_action :set_book, only: %i[show edit update destroy]
+  
     def index
       @products = Product.all
-  
       render json: @products
+      end
     end
   
-    # GET /products/1
     def show
-      render json: @product
+    end
+
+    def new
+      @product = Product.new
+    end
+
+    def edit
     end
   
-    # POST /products
     def create
       @product = Product.new(product_params)
   
@@ -24,7 +28,6 @@ class Api::V1::ContactsController < ApplicationController
       end
     end
   
-    # PATCH/PUT /products/1
     def update
       if @product.update(product_params)
         render json: @product
@@ -33,20 +36,20 @@ class Api::V1::ContactsController < ApplicationController
       end
     end
   
-    # DELETE /products/1
     def destroy
       @product.destroy
+      respond_to do |format|
+        format.html { redirect_to books_url, notice: 'Product was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
   
+  
     private
-      # Use callbacks to share common setup or constraints between actions.
       def set_product
         @product = Product.find(params[:id])
       end
   
-      # Only allow a list of trusted parameters through.
       def product_params
         params.require(:product).permit(:name, :title, :discription, :price, :image_path, :company_id)
       end
-  end
-  
